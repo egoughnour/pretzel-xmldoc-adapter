@@ -22,11 +22,12 @@ namespace PretzelAdapter
             //TODO: [PROC] pretzel create mdgen (if DNE)
             //TODO: create mdgen/_plugins directory (if DNE)
             //TODO: replace PluginDirectoryToken in Plugin.csx
-            //TODO: copy Plugin.csx to mdgen/_pluginsn (if DNE)
+            //TODO: copy Plugin.csx to mdgen/_plugins (if DNE)
+            //TODO: copy NDesk.Options.dll to  mdgen/_plugins/bin (if DNE)
             //TODO: copy static md files to mdgen/_posts (if DNE)
             //TODO: clear mdgen/_posts directory.  copy static md files to mdgen/_posts (if Exists)
             //TODO: [PROC] pretzel taste -t=customxmlmd --project=<projectName> --earlyexit <true|false|t|f|0|1>
-            
+
         }
     }
 }
