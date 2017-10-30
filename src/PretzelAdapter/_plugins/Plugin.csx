@@ -1,4 +1,4 @@
-﻿#r "<pathToPluginsDir>\_plugins\bin\NDesk.Options.dll"
+﻿#r "<basePathToken>\_plugins\bin\NDesk.Options.dll"
 using Pretzel.Logic.Extensibility;
 using Pretzel.Logic.Templating;
 using Pretzel.Logic.Templating.Context;
