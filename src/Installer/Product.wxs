@@ -34,7 +34,7 @@
         <File Name="NDesk.Options.dll" Source="..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll" KeyPath="yes" Checksum="yes" />
       </Component>
       <Component Id="Plugin.csx" Guid="211D908C-12CB-42D5-8C76-A6B3E66439BC">
-        <File Name="Plugin.csx" Source="..\PretzelAdapter\bin\Debug\plugins\Plugin.csx" KeyPath="yes" />
+        <File Name="Plugin.csx" Source="..\PretzelAdapter\bin\Debug\_plugins\Plugin.csx" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
