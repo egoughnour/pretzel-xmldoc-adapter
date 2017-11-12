@@ -6,19 +6,39 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate />
 
-		<Feature Id="ProductFeature" Title="Installer" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
+		<Feature Id="MainApplication" Title="Main Application" Level="1">
+      <ComponentRef Id="PretzelAdapter.exe" />
+      <ComponentRef Id="PretzelAdapter.exe.config" />
+      <ComponentRef Id="NDesk.Options.dll" />
+      <ComponentRef Id="Plugin.csx" />
 		</Feature>
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="Installer" />
+				<Directory Id="INSTALLFOLDER" Name="PretzelAdapter" />
 			</Directory>
 		</Directory>
 	</Fragment>
 
+  <Fragment>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="PretzelAdapter.exe" Guid="C2EA36E9-C997-44C4-96D1-53572CEF8202">
+        <File Name="PretzelAdapter.exe" Source="..\PretzelAdapter\bin\Debug\PretzelAdapter.exe" KeyPath="yes" Checksum="yes" />
+      </Component>
+       <Component Id="PretzelAdapter.exe.config" Guid="5DFA5B6E-1E3D-4DE8-818B-0884B138124E">
+        <File Name="PretzelAdapter.exe.config" Source="..\PretzelAdapter\bin\Debug\PretzelAdapter.exe.config" KeyPath="yes" />
+      </Component>
+      <Component Id="NDesk.Options.dll" Guid="E729AF60-B4E1-4AF2-8A92-9A645551FAA6">
+        <File Name="NDesk.Options.dll" Source="..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="Plugin.csx" Guid="211D908C-12CB-42D5-8C76-A6B3E66439BC">
+        <File Name="Plugin.csx" Source="..\PretzelAdapter\bin\Debug\Plugin.csx" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+    
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->

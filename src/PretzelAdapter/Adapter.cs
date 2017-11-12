@@ -94,9 +94,10 @@ namespace PretzelAdapter
             var options = Options.GetOptions(args);
             AbsoluteBasePath = Path.GetFullPath(options.BaseDirectory);
             CreateSite();
-            var copyUnneeded = default(bool);
-            EnsureAllTargetPathsCreated(out copyUnneeded);
-            if (!copyUnneeded)
+            var directoriesExist = default(bool);
+            EnsureAllTargetPathsCreated(out directoriesExist);
+            var mustCopyContentToSite = !directoriesExist;
+            if (mustCopyContentToSite)
             {
                 var optionsRefSource = GetOptionsRefSource(options);
                 var pluginSource = GetPluginSource(options);
