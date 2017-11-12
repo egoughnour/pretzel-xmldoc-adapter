@@ -129,7 +129,47 @@ namespace PretzelAdapter
                 Directory.Delete(PostsPath, true);
                 Directory.CreateDirectory(PostsPath);
             }
-            //TODO: Copy with globbing and directory input accounted for
+            if(IsFileGlob(options.Input))
+            {
+                var glob = options.Input;
+                var fileNameGlob = glob.Substring(glob.LastIndexOf(Slash));
+                var pathToGlob = glob.Substring(0, glob.LastIndexOf(Slash));
+                if(Directory.Exists(pathToGlob))
+                {
+                    foreach(var inputFile in Directory.GetFiles(pathToGlob, fileNameGlob, SearchOption.TopDirectoryOnly))
+                    {
+                        File.Copy(inputFile, $@"{PostsPath}{Slash}{Path.GetFileName(inputFile)}", true);
+                    }
+                }
+                else
+                {
+                    throw new FileNotFoundException("The specified input file does not exist", options.Input);
+                }
+
+            }
+            else if(!(File.Exists(options.Input)||Directory.Exists(options.Input)))
+            {
+                throw new FileNotFoundException("The specified input file does not exist", options.Input);
+            }
+            else
+            {
+                if(Directory.Exists(options.Input))
+                {
+                    foreach(var inputFile in Directory.GetFiles(options.Input, "*.md", SearchOption.AllDirectories))
+                    {
+                        File.Copy(inputFile, $@"{PostsPath}{Slash}{Path.GetFileName(inputFile)}", true);
+                    }
+                }
+                else
+                {
+                    File.Copy(options.Input, $@"{PostsPath}{Slash}{Path.GetFileName(options.Input)}", true);
+                }
+            }
+        }
+
+        public static bool IsFileGlob(string path)
+        {
+            return path.IndexOf('*') > 0;
         }
 
         public static void CreateSite()
