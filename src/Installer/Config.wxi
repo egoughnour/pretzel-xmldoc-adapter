@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define Company = "E Goughnour" ?>
+  <?define NDeskVersion = "0.2.1" ?>
+  <?define DebugFlag = "yes" ?>
+  <?if $(var.Platform) = x64 ?>
+  <?define ProductCompactName = "PretzelAdapter" ?>
+  <?define ProductName = "Pretzel Adapter (64 bit)" ?>
+  <?define Win64 = "yes" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+  <?define ProductName = "Pretzel Adapter" ?>
+  <?define Win64 = "no" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+</Include>

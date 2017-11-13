@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Installer" Language="1033" Version="1.0.0.0" Manufacturer="E Goughnour" UpgradeCode="4bb3af31-4af6-4494-a7ba-bc0a932a359e">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <?include $(sys.CURRENTDIR)\Config.wxi?>
+	<Product Id="*" Name="$(var.ProductCompactName)" Language="1033" Version="1.0.0.0" Manufacturer="$(var.Company)" UpgradeCode="4bb3af31-4af6-4494-a7ba-bc0a932a359e">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="$(var.Platform)"  Description="$(var.ProductName)"/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="MainApplication" Title="Main Application" Level="1">
       <ComponentRef Id="PretzelAdapter.exe" />
       <ComponentRef Id="PretzelAdapter.exe.config" />
       <ComponentRef Id="NDesk.Options.dll" />
       <ComponentRef Id="Plugin.csx" />
+      <?ifdef DebugFlag?>
+      <ComponentRef Id="PretzelAdapter.pdb" />
+      <?endif?>
 		</Feature>
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="PretzelAdapter" />
+			<Directory Id="$(var.PlatformProgramFilesFolder)">
+				<Directory Id="INSTALLFOLDER" Name="$(var.ProductCompactName)" />
 			</Directory>
 		</Directory>
 	</Fragment>
+  
+    <Fragment>
+    <Property Id="INSTALLFOLDER">
+      <RegistrySearch Id="RegistrySearch" Type="raw" Root="HKLM" Win64="$(var.Win64)"
+                Key="Software\$(var.Company)\$(var.ProductCompactName)" Name="InstallLocation" />
+    </Property>
+  </Fragment>
 
   <Fragment>
     <DirectoryRef Id="INSTALLFOLDER">
@@ -31,10 +42,13 @@
         <File Name="PretzelAdapter.exe.config" Source="..\PretzelAdapter\bin\Debug\PretzelAdapter.exe.config" KeyPath="yes" />
       </Component>
       <Component Id="NDesk.Options.dll" Guid="E729AF60-B4E1-4AF2-8A92-9A645551FAA6">
-        <File Name="NDesk.Options.dll" Source="..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll" KeyPath="yes" Checksum="yes" />
+        <File Name="NDesk.Options.dll" Source="..\packages\NDesk.Options.$(var.NDeskVersion)\lib\NDesk.Options.dll" KeyPath="yes" Checksum="yes" />
       </Component>
       <Component Id="Plugin.csx" Guid="211D908C-12CB-42D5-8C76-A6B3E66439BC">
         <File Name="Plugin.csx" Source="..\PretzelAdapter\bin\Debug\_plugins\Plugin.csx" KeyPath="yes" />
+      </Component>
+      <Component Id="PretzelAdapter.pdb" Guid="10FC31A0-A407-42A9-9B8D-3C75E4173D77">
+        <File Name="PretzelAdapter.pdb" Source="..\PretzelAdapter\bin\Debug\PretzelAdapter.pdb" KeyPath="yes" Checksum="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>

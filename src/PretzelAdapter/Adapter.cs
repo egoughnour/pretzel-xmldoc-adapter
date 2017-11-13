@@ -92,6 +92,13 @@ namespace PretzelAdapter
         public static void Main(string[] args)
         {
             var options = Options.GetOptions(args);
+            if(options.Debug)
+            {
+                Console.WriteLine("Debug flag is set.");
+                Console.WriteLine("Press enter to continue once you have set your breakpoint(s).");
+                Console.ReadLine();
+                Debugger.Launch();
+            }
             AbsoluteBasePath = Path.GetFullPath(options.BaseDirectory);
             CreateSite();
             var directoriesExist = default(bool);

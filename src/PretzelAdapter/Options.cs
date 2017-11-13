@@ -20,6 +20,7 @@ namespace PretzelAdapter
             {
                 { "b|basepath=", "the path where the pretzel site will be generated.", v => options.BaseDirectory = v },
                 { "x|exitearly", "whether to continue processing after reading the front matter", v => options.ExitEarly = (v != null)},
+                { "d|debug", "whether to launch the debugger", v => options.Debug = (v != null)},
                 { "p|project=", "the project for which the templates are to be processed", v => options.OutputPrefix = v},
                 { "i|input=", "input file(s), path or file glob", v => options.Input = v },
                 { "h|help", "display the associated help text", v => showHelp = (null != v) }
@@ -44,6 +45,7 @@ namespace PretzelAdapter
         {
             BaseDirectory = "";
             ExitEarly = false;
+            Debug = false;
             OutputPrefix = "";
             Input = "";
         }
@@ -53,6 +55,8 @@ namespace PretzelAdapter
         public bool ExitEarly { get; set; }
         public string OutputPrefix { get; set; }
         public string Input { get; set; }
+        public bool Debug { get; set; }
+
         static void ShowHelp(OptionSet currentOptionSet, string exceptionMessage = null, bool exitFromHelp = true)
         {
             if(null != exceptionMessage)
