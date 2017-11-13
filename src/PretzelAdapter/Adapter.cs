@@ -73,12 +73,12 @@ namespace PretzelAdapter
 
         public static string GetPluginSource(Options options)
         {
-            return Path.Combine(options.AdapterDirectory, $@"{PluginDirectory}{Slash}{PluginFile}");
+            return Path.Combine(options.AdapterDirectory, PluginFile);
         }
 
         public static string GetOptionsRefSource(Options options)
         {
-            return Path.Combine(options.AdapterDirectory, $@"{PluginDirectory}{Slash}{BinaryDirectory}{Slash}{OptionsAssemblyRef}");
+            return Path.Combine(options.AdapterDirectory, OptionsAssemblyRef);
         }
 
         public static void EnsureAllTargetPathsCreated(out bool pathsExist)
@@ -192,7 +192,8 @@ namespace PretzelAdapter
                 {
                     StartInfo = new ProcessStartInfo()
                     {
-                        Arguments = "pretzel create mdgen",
+                        FileName = "pretzel",
+                        Arguments = "create mdgen",
                         WorkingDirectory = AbsoluteBasePath
                     }
                 };
@@ -206,9 +207,10 @@ namespace PretzelAdapter
             var exitFlag = options.ExitEarly ? " --earlyexit" : string.Empty;
             var process = new Process()
             {
-                StartInfo = new ProcessStartInfo()
+              StartInfo = new ProcessStartInfo()
                 {
-                    Arguments = $@"pretzel taste -t=customxmlmd --project={options.OutputPrefix ?? @""""""}{exitFlag}",
+                    FileName = "pretzel",
+                    Arguments = $@"taste -t=customxmlmd --project={options.OutputPrefix ?? @""""""}{exitFlag}",
                     WorkingDirectory = SitePath
                 }
             };
